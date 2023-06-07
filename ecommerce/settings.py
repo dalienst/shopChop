@@ -27,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CART_SESSION_ID = 'cart'
+SESSION_COOKIE_AGE = 86400 #seconds the session should be alive
+
 LOGIN_REDIRECT_URL = 'core:frontpage'
 LOGOUT_REDIRECT_URL = 'core:frontpage'
 
