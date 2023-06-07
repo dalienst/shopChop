@@ -1,0 +1,24 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<h1 class="text-xl">Login</h1>
+
+<form action="." method="post" class="flex flex-col m-auto">
+    {% csrf_token %}
+    <div>
+        <h4>{{form.username.label}}</h4>
+        {{form.username}}
+    </div>
+    
+    <div>
+        <h4>{{form.password.label}}</h4>
+        {{form.password}}
+    </div>
+    
+
+    <button class="mt-3 py-2 px-4 bg-black text-white w-1/4" type="submit">Login</button>
+</form>
+<a href="{% url 'userprofiles:signup' %}" class="mt-2 text-blue-500">Create an account</a>
+{% endblock %}

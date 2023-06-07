@@ -1,0 +1,13 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+<h2 class="text-xl mt-6">{{title}}</h2>
+
+<form action="." method="post" enctype="multipart/form-data" class="space-y-5">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class="py-2 px-4 bg-black text-white hover:bg-green-500" type="submit">Add Product</button>
+</form>
+{% endblock %}
