@@ -76,8 +76,34 @@ class Product(models.Model):
 
         thumb_io = BytesIO()
         img.save(thumb_io, "JPEG", quality=85)
-        name = image.name.replace('uploads/product_images/', '')
+        name = image.name.replace("uploads/product_images/", "")
 
         thumbnail = File(thumb_io, name=name)
 
         return thumbnail
+
+
+class Order(models.Model):
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
+    zipcode = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
+    paid_amount = models.IntegerField(default=0)
+    is_paid = models.BooleanField(default=False)
+    payment_intent = models.CharField(max_length=3000)
+    created_by = models.ForeignKey(User, related_name='orders', on_delete=models.SET_NULL, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return self.first_name
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, related_name="items", on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name="items", on_delete=models.CASCADE)
+    price = models.IntegerField()
+    quantity = models.IntegerField(default=1)
+
+    def get_display_price(self):
+        return self.price / 100

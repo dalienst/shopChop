@@ -1,4 +1,4 @@
 {% for category in categories %}
-<a href="{% url 'store:category_detail' category.slug %}" class="text-white ">{{category.title}}</a>
+    <a href="{% url 'store:category_detail' category.slug %}"
+        class="mt-4 text-center rounded-md bg-green-500 px-2 py-2">{{category.title}}</a>
 {% endfor %}
-<a href="{% url 'core:about' %}" class="text-white ">About</a>

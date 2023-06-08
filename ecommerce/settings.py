@@ -37,6 +37,7 @@ ALLOWED_HOSTS = [
 CART_SESSION_ID = "cart"
 SESSION_COOKIE_AGE = 86400  # seconds the session should be alive
 
+LOGIN_URL = "userprofiles:login"
 LOGIN_REDIRECT_URL = "core:frontpage"
 LOGOUT_REDIRECT_URL = "core:frontpage"
 
@@ -92,6 +93,11 @@ CORS_ALLOW_HEADERS = default_headers + ("Access-Control-Allow-Origin",)
 
 ROOT_URLCONF = "ecommerce.urls"
 
+STRIPE_PUB_KEY = "pk_test_51NGosPI2LgAkja995sxoGH58oZZh02udSGsfkVP5WWa25fSXjKL1ZrImKhGG8GcvIUaU2qp5xxB3WNEJiQBPxsPO00DjqHGHVC"
+STRIPE_SECRET_KEY = "sk_test_51NGosPI2LgAkja99Iql3CrQQMrRQsaOHo4cMSUqqQo6ZpZ08GMu4x3lFxnhb5QxVdpimKNvjBMqZIytJyT1IqcqW00t7QbWcMX"
+
+WEBSITE_URL = "http://127.0.0.1:8000/"
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -103,6 +109,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "store.context_processors.cart",
             ],
         },
     },
@@ -153,6 +160,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "static"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
