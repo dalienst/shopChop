@@ -31,7 +31,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
-    "web-production-1c40.up.railway.app",
+    "shopchop.up.railway.app",
 ]
 
 CART_SESSION_ID = "cart"
@@ -70,13 +70,13 @@ MIDDLEWARE = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://web-production-1c40.up.railway.app",
+    "https://shopchop.up.railway.app",
 ]
 
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "https://web-production-1c40.up.railway.app",
+    "https://shopchop.up.railway.app",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -84,7 +84,7 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "https://web-production-1c40.up.railway.app",
+    "https://shopchop.up.railway.app",
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
