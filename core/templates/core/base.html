@@ -11,7 +11,7 @@
     </head>
 
     <body>
-        <nav class="max-w-4xl mx-auto py-4 px-6 bg-black flex items-center justify-between">
+        <nav class="max-w-full mx-auto py-4 px-6 bg-black flex items-center justify-between">
             <div class="logo">
                 <a class="text-white text-2xl" href="{% url 'core:frontpage' %}">ShopChop</a>
             </div>
@@ -32,17 +32,28 @@
             
 
             <div class="menu flex space-x-4">
-                {% menu %}
                 {% if request.user.is_authenticated %}
-                <a href="{% url 'userprofiles:mystore' %}" class="text-white ">Shop</a>
-                <a href="{% url 'store:cart_view' %}" class="text-white ">Cart</a>
-                <a href="{% url 'userprofiles:myaccount' %}" class="text-white ">Profile</a>
+
+                <a href="{% url 'core:about' %}" class="text-white ">About</a>
+                {% if request.user.userprofile.is_vendor %}
+                    <a href="{% url 'userprofiles:mystore' %}" class="text-white ">Shop</a>
+                {% endif %}
+                <a href="{% url 'store:cart_view' %}" class="text-black flex space-x-2 px-2 bg-white rounded-xl">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                        class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                    </svg>
+                    <span>({{cart|length}})</span>
+                </a>
+                <a href="{% url 'userprofiles:myaccount' %}" class="text-black px-2 bg-white rounded-xl">Profile</a>
                 {% else %}
                 <a href="{% url 'userprofiles:login' %}" class="text-white ">Login</a>
                 {% endif %}
             </div>
         </nav>
-        <div class="max-w-4xl mx-auto py-4 px-6">
+        <div class="max-w-full mx-auto py-4 px-6">
+            {% menu %}
 
             {% if messages %}
             <div class="py-6 px-6">
@@ -56,6 +67,8 @@
 
             {% block content %}{% endblock %}
         </div>
+
+        {% block scripts %}{% endblock %}
         
     </body>
 
