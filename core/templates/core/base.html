@@ -34,9 +34,9 @@
             <div class="menu flex space-x-4">
                 {% menu %}
                 {% if request.user.is_authenticated %}
-                <a href="{% url 'userprofiles:mystore' %}" class="text-white ">My Store</a>
+                <a href="{% url 'userprofiles:mystore' %}" class="text-white ">Shop</a>
                 <a href="{% url 'store:cart_view' %}" class="text-white ">Cart</a>
-                <a href="{% url 'userprofiles:myaccount' %}" class="text-white ">My Account</a>
+                <a href="{% url 'userprofiles:myaccount' %}" class="text-white ">Profile</a>
                 {% else %}
                 <a href="{% url 'userprofiles:login' %}" class="text-white ">Login</a>
                 {% endif %}
