@@ -93,10 +93,10 @@ CORS_ALLOW_HEADERS = default_headers + ("Access-Control-Allow-Origin",)
 
 ROOT_URLCONF = "ecommerce.urls"
 
-STRIPE_PUB_KEY = "pk_test_51NGosPI2LgAkja995sxoGH58oZZh02udSGsfkVP5WWa25fSXjKL1ZrImKhGG8GcvIUaU2qp5xxB3WNEJiQBPxsPO00DjqHGHVC"
-STRIPE_SECRET_KEY = "sk_test_51NGosPI2LgAkja99Iql3CrQQMrRQsaOHo4cMSUqqQo6ZpZ08GMu4x3lFxnhb5QxVdpimKNvjBMqZIytJyT1IqcqW00t7QbWcMX"
+STRIPE_PUB_KEY = config("STRIPE_PUB_KEY")
+STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY")
 
-WEBSITE_URL = "http://127.0.0.1:8000/"
+WEBSITE_URL = config("WEBSITE_URL")
 
 TEMPLATES = [
     {
