@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
+from corsheaders.defaults import default_headers
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,13 +28,16 @@ SECRET_KEY = "django-insecure-^8()898*i%2!hn-=++mh*fd!7@@qzwa6gm3_wlu4@syp-dkgkz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+]
 
-CART_SESSION_ID = 'cart'
-SESSION_COOKIE_AGE = 86400 #seconds the session should be alive
+CART_SESSION_ID = "cart"
+SESSION_COOKIE_AGE = 86400  # seconds the session should be alive
 
-LOGIN_REDIRECT_URL = 'core:frontpage'
-LOGOUT_REDIRECT_URL = 'core:frontpage'
+LOGIN_REDIRECT_URL = "core:frontpage"
+LOGOUT_REDIRECT_URL = "core:frontpage"
 
 
 # Application definition
@@ -43,6 +49,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # Third party apps
+    "corsheaders",
+    # Apps
     "core",
     "userprofiles",
     "store",
@@ -57,6 +66,22 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOW_HEADERS = default_headers + ("Access-Control-Allow-Origin",)
 
 ROOT_URLCONF = "ecommerce.urls"
 
@@ -82,12 +107,8 @@ WSGI_APPLICATION = "ecommerce.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+db_config = dj_database_url.config(default=config("DATABASE_URL"))
+DATABASES = {"default": db_config}
 
 
 # Password validation
@@ -125,8 +146,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
-MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
