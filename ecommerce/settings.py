@@ -14,6 +14,9 @@ from pathlib import Path
 import dj_database_url
 from corsheaders.defaults import default_headers
 from decouple import config
+import cloudinary
+import cloudinary.api
+import cloudinary.uploader
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -53,6 +56,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Third party apps
     "corsheaders",
+    "cloudinary",
     # Apps
     "core",
     "userprofiles",
@@ -167,3 +171,9 @@ MEDIA_ROOT = BASE_DIR / "media"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+cloudinary.config(
+    cloud_name=config("CLOUDINARY_NAME"),
+    api_key=config("CLOUDINARY_API_KEY"),
+    api_secret=config("CLOUDINARY_API_SECRET"),
+)
