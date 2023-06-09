@@ -4,6 +4,7 @@ from django.core.files import File
 
 from io import BytesIO
 from PIL import Image
+from cloudinary.models import CloudinaryField
 
 
 class Category(models.Model):
@@ -39,12 +40,8 @@ class Product(models.Model):
     description = models.TextField(blank=True)
     slug = models.SlugField(max_length=50)
     price = models.IntegerField()
-    image = models.ImageField(
-        upload_to="uploads/product_images/", blank=True, null=True
-    )
-    thumbnail = models.ImageField(
-        upload_to="uploads/product_images/thumbnail/", blank=True, null=True
-    )
+    image = CloudinaryField("product_images", blank=True, null=True)
+    thumbnail = CloudinaryField("product_thumbnail", blank=True, null=True)
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default=ACTIVE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -76,7 +73,7 @@ class Product(models.Model):
 
         thumb_io = BytesIO()
         img.save(thumb_io, "JPEG", quality=85)
-        name = image.name.replace("uploads/product_images/", "")
+        name = image.name.replace("product_images/", "")
 
         thumbnail = File(thumb_io, name=name)
 
@@ -92,7 +89,9 @@ class Order(models.Model):
     paid_amount = models.IntegerField(default=0)
     is_paid = models.BooleanField(default=False)
     payment_intent = models.CharField(max_length=3000)
-    created_by = models.ForeignKey(User, related_name='orders', on_delete=models.SET_NULL, null=True)
+    created_by = models.ForeignKey(
+        User, related_name="orders", on_delete=models.SET_NULL, null=True
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
